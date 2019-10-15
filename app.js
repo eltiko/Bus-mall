@@ -96,22 +96,36 @@ new Product('wine-glass');
 function handleClick() {
     var chosenImage = event.target.title;
     console.log('chosenImage', chosenImage);
-    if(totalClick === 5){
+    if(totalClick === 25){
         alert('thank you');
         containerEl.removeEventListener('click', handleClick);
+        //only after 25 click will this list render
+        for(var i = 0; i < allProducts.length; i++){ 
+            var li1 = document.createElement('li');
+            li1.textContent = allProducts[i].name + ' views: ' + allProducts[i].views + ' Votes: ' + allProducts[i].votes; 
+            liste.appendChild(li1);
+        }
     }
+
     for( var i = 0; i < allProducts.length; i++) {
-        if(allProducts[i].path === chosenImage) {
+        if(allProducts[i].name === chosenImage) {
             allProducts[i].votes++;
+            allProducts[i].views++;
         }
     }
     totalClick++;
  console.log('totalClick', totalClick);
  renderProducts();
 }
+
 renderProducts();
 
 containerEl.addEventListener('click', handleClick);
 
-alert('your result is ' + allProducts[i].vote + totalClick);
+var liste = document.getElementById('tally');
 
+// for(var i = 0; i < allProducts.length; i++){ 
+//     var li1 = document.createElement('li');
+//     li1.textContent = allProducts[i].name + ' views: ' + allProducts[i].views + ' Votes: ' + allProducts[i].votes; 
+//     liste.appendChild(li1);
+// }
