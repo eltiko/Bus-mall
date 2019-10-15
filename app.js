@@ -42,12 +42,20 @@ function renderProducts(){
     uniquePicArray[1] = makeRandom();
     uniquePicArray[2] = makeRandom();
 
-    while(uniquePicArray[0] === uniquePicArray[1]) {
+    while(uniquePicArray[0] === uniquePicArray[1] || uniquePicArray[2]=== uniquePicArray[1] || uniquePicArray[0] === uniquePicArray[2]) {
         console.error('Duplicate found, Re-rolling!');
-        uniquePicArray[1] = makeRandom();
-    
-        
-    }
+        // uniquePicArray[1] = makeRandom();
+        if(uniquePicArray[0] === uniquePicArray[1]){
+            uniquePicArray[1] = makeRandom();
+        }
+         if(uniquePicArray[2]=== uniquePicArray[1]){
+            uniquePicArray[2] = makeRandom();
+        }
+        if(uniquePicArray[0] === uniquePicArray[2]){
+            uniquePicArray[2] = makeRandom();
+        }
+
+}
     //add views here
 
     // console.log('SALSA:', allProducts[uniquePicArray[0]]);
@@ -99,6 +107,7 @@ function handleClick() {
     if(totalClick === 25){
         alert('thank you');
         containerEl.removeEventListener('click', handleClick);
+        //make chart  get in here.....for today 
         //only after 25 click will this list render
         for(var i = 0; i < allProducts.length; i++){ 
             var li1 = document.createElement('li');
