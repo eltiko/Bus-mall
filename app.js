@@ -109,11 +109,12 @@ function handleClick() {
         containerEl.removeEventListener('click', handleClick);
         //make chart  get in here.....for today 
         //only after 25 click will this list render
-        for(var i = 0; i < allProducts.length; i++){ 
-            var li1 = document.createElement('li');
-            li1.textContent = allProducts[i].name + ' views: ' + allProducts[i].views + ' Votes: ' + allProducts[i].votes; 
-            liste.appendChild(li1);
-        }
+        // for(var i = 0; i < allProducts.length; i++){ 
+        //     var li1 = document.createElement('li');
+        //     li1.textContent = allProducts[i].name + ' views: ' + allProducts[i].views + ' Votes: ' + allProducts[i].votes; 
+        //     liste.appendChild(li1);
+        // }
+        makeChart();
     }
 
     for( var i = 0; i < allProducts.length; i++) {
@@ -131,10 +132,81 @@ renderProducts();
 
 containerEl.addEventListener('click', handleClick);
 
-var liste = document.getElementById('tally');
+// var liste = document.getElementById('tally');
 
 // for(var i = 0; i < allProducts.length; i++){ 
 //     var li1 = document.createElement('li');
 //     li1.textContent = allProducts[i].name + ' views: ' + allProducts[i].views + ' Votes: ' + allProducts[i].votes; 
 //     liste.appendChild(li1);
 // }
+
+Product.bottomNameBar = [];
+Product.bottomVotesBar = [];
+
+var createDataBar = function(){
+    for(var i = 0; i < allProducts.length; i++) {
+        Product.bottomNameBar.push(allProducts[i].name);
+        Product.bottomVotesBar.push(allProducts[i].votes);
+    }
+};
+
+var makeChart = function(){
+    createDataBar();
+
+
+var ctx = document.getElementById('myChart').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: Product.bottomNameBar,
+                    datasets: [{
+                        label: '# of Votes',
+                        data: Product.bottomVotesBar,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)',
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)',
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)',
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+};
