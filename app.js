@@ -79,44 +79,25 @@ function renderProducts(){
     middleImage.title = allProducts[uniquePicArray[2]].name;
 }
 
+loadData();
 
-new Product('bag');
-new Product('banana');
-new Product('bathroom');
-new Product('boots');
-new Product('breakfast');
-new Product('bubblegum');
-new Product('chair');
-new Product('cthulhu');
-new Product('dog-duck');
-new Product('dragon');
-new Product('pen');
-new Product('pet-sweep');
-new Product('scissors');
-new Product('shark');
-new Product('sweep');
-new Product('tauntaun');
-new Product('unicorn');
-new Product('usb');
-new Product('water-can');
-new Product('wine-glass');
 
 function handleClick() {
     var chosenImage = event.target.title;
     console.log('chosenImage', chosenImage);
     if(totalClick === 25){
         alert('thank you');
-        containerEl.removeEventListener('click', handleClick);
-        //make chart  get in here.....for today 
-        //only after 25 click will this list render
-        // for(var i = 0; i < allProducts.length; i++){ 
-        //     var li1 = document.createElement('li');
-        //     li1.textContent = allProducts[i].name + ' views: ' + allProducts[i].views + ' Votes: ' + allProducts[i].votes; 
-        //     liste.appendChild(li1);
-        // }
+        containerEl.remove(handleClick);
+    
         makeChart();
+        storageData();
+        loadData()
+    
     }
-
+        function storageData(){
+            var allProductsStringified = JSON.stringify(allProducts);
+            localStorage.setItem('data', allProductsStringified);
+        }
     for( var i = 0; i < allProducts.length; i++) {
         if(allProducts[i].name === chosenImage) {
             allProducts[i].votes++;
@@ -132,27 +113,31 @@ renderProducts();
 
 containerEl.addEventListener('click', handleClick);
 
-// var liste = document.getElementById('tally');
 
-// for(var i = 0; i < allProducts.length; i++){ 
-//     var li1 = document.createElement('li');
-//     li1.textContent = allProducts[i].name + ' views: ' + allProducts[i].views + ' Votes: ' + allProducts[i].votes; 
-//     liste.appendChild(li1);
-// }
 
 Product.bottomNameBar = [];
 Product.bottomVotesBar = [];
 
-var createDataBar = function(){
+var createDataBar = function(){ 
     for(var i = 0; i < allProducts.length; i++) {
         Product.bottomNameBar.push(allProducts[i].name);
         Product.bottomVotesBar.push(allProducts[i].votes);
     }
 };
 
+function loadData(){
+   
+    var storageAllProducts = localStorage.getItem('data');
+    var parsedAllProducts = JSON.parse(storageAllProducts);
+    for( var i = 0; i < parsedAllProducts.length; i++){
+        var newProduct = new Product(parsedAllProducts[i].name, parsedAllProducts[i].views, parsedAllProducts[i].votes);
+        newProduct.views = parsedAllProducts[i].views;
+        newProduct.votes = parsedAllProducts[i].votes;
+    }
+}
+
 var makeChart = function(){
     createDataBar();
-
 
 var ctx = document.getElementById('myChart').getContext('2d');
             var myChart = new Chart(ctx, {
