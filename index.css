@@ -8,7 +8,7 @@ img{
 body {
     width: 100%;
     height: 100%;
-    background: rgba(26, 24, 23, 0.5); 
+  background: radial-gradient(rgb(238, 238, 222), rgb(229, 236, 229), rgb(201, 179, 179), rgb(195, 195, 214), rgb(59, 51, 51));
 background-repeat: repeat;
 background-size: cover;
 }
@@ -20,13 +20,32 @@ h1{
     font-family: cursive;
     font-style: oblique;
     font-weight: bolder; 
-    color: rgb(161, 144, 144);
+    color: rgb(113, 131, 212);
     text-transform: uppercase;
     text-shadow:  rgb(29, 29, 31) 3px 3px; 
     font-size: 80px;
-    text-decoration-line: underline;
+    /* text-decoration-line: underline; */
+    background: radial-gradient(yellow, red, green, blue);
+    width: 30%;
+    margin-left: 40%;
+    animation: rotation 5s linear infinite;
+    border: 5px dashed blue;
 }
-ul{
+#right:hover  {
+    transform: scale(1.3);
+}
+#middle:hover{
+    
+        transform: scale(1.3);
+    }
+
+#left:hover{
+    
+        transform: scale(1.3);
+    }
+
+
+/* ul{
     background-color:  rgb(161, 144, 144);
     width: 30%;
     text-align: center;
@@ -35,5 +54,8 @@ ul{
 li{
     border: 1px solid black;
     width: 100%;
-    font-size: 30px;
-}
+    font-size: 30px; */
+/* } */
+/* #myChart{
+    background: rgb(177, 184, 194);
+} */
