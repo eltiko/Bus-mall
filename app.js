@@ -1,22 +1,9 @@
 'use strict'
-
+//get elements from html by id
 var leftImage = document.getElementById('left');
 var rightImage = document.getElementById('right');
 var middleImage = document.getElementById('middle');
 var containerEl = document.getElementById('image_container');
-
-
-// leftImage.src = 'images/bag.jpg';
-// leftImage.name = 'bag.jpg';
-// leftImage.title = 'bag.jpg';
-
-// middleImage.src = 'images/banana.jpg';
-// middleImage.name = 'banana.jpg';
-// middleImage.title = 'banana.jpg';
-
-// rightImage.src = 'images/boots.jpg';
-// rightImage.name = 'boots.jpg';
-// rightImage.title = 'boots.jpg';
 
 var allProducts = [];
 var totalClick = 0;
@@ -44,7 +31,7 @@ function renderProducts(){
 
     while(uniquePicArray[0] === uniquePicArray[1] || uniquePicArray[2]=== uniquePicArray[1] || uniquePicArray[0] === uniquePicArray[2]) {
         console.error('Duplicate found, Re-rolling!');
-        // uniquePicArray[1] = makeRandom();
+    
         if(uniquePicArray[0] === uniquePicArray[1]){
             uniquePicArray[1] = makeRandom();
         }
@@ -56,9 +43,9 @@ function renderProducts(){
         }
 
 }
-    //add views here
+  
 
-    // console.log('SALSA:', allProducts[uniquePicArray[0]]);
+    
     
             
     //display a oroduct whose is the random number
@@ -86,7 +73,7 @@ function handleClick() {
     var chosenImage = event.target.title;
     console.log('chosenImage', chosenImage);
     if(totalClick === 25){
-        alert('thank you');
+        alert('Thank you, I\'m gonna show you the results');
         containerEl.remove(handleClick);
     
         makeChart();
@@ -94,6 +81,7 @@ function handleClick() {
         loadData()
     
     }
+    //store the data
         function storageData(){
             var allProductsStringified = JSON.stringify(allProducts);
             localStorage.setItem('data', allProductsStringified);
@@ -117,7 +105,7 @@ containerEl.addEventListener('click', handleClick);
 
 Product.bottomNameBar = [];
 Product.bottomVotesBar = [];
-
+//Create data bar
 var createDataBar = function(){ 
     for(var i = 0; i < allProducts.length; i++) {
         Product.bottomNameBar.push(allProducts[i].name);
@@ -126,7 +114,7 @@ var createDataBar = function(){
 };
 
 function loadData(){
-   
+   //take data from local storage
     var storageAllProducts = localStorage.getItem('data');
     var parsedAllProducts = JSON.parse(storageAllProducts);
     for( var i = 0; i < parsedAllProducts.length; i++){
@@ -136,6 +124,7 @@ function loadData(){
     }
 }
 
+ //creat the chart to displat the results as bars
 var makeChart = function(){
     createDataBar();
 
@@ -172,6 +161,7 @@ var ctx = document.getElementById('myChart').getContext('2d');
                             'rgba(75, 192, 192, 0.2)',
                             'rgba(153, 102, 255, 0.2)',
                             'rgba(255, 159, 64, 0.2)'
+                            
                         ],
                         borderColor: [
                             'rgba(255, 99, 132, 1)',
